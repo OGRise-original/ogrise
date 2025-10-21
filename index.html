@@ -1,0 +1,150 @@
+<!--
+OG Rise E-Commerce Website (Black & Gold Theme, Multi-Section)
+Single-file responsive site: Home, Shop, Contact
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OG Rise</title>
+  <style>
+    :root{--bg:#ffffff;--card:#ffffff;--accent:#bfa14a;--muted:#6b6b6b;--text:#0f0f0f}
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;margin:0;background:var(--bg);color:var(--text)}
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:100;}
+    nav{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:1px;text-transform:uppercase}
+    .logo{width:42px;height:42px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .nav-links a{text-decoration:none;color:var(--text);margin-left:18px;font-weight:500;transition:.2s}
+    .nav-links a:hover{color:var(--accent)}
+
+    section{padding:60px 16px;max-width:1100px;margin:auto}
+
+    /* Home Section */
+    #home{background:linear-gradient(135deg,#000 20%,#bfa14a 100%);color:#fff;text-align:center;padding:100px 20px;border-radius:0 0 40px 40px;}
+    #home h1{font-size:40px;margin:0 0 10px 0;letter-spacing:1px}
+    #home p{max-width:600px;margin:0 auto 20px auto;font-size:16px;line-height:1.6}
+    #home button{background:#fff;color:#000;font-weight:700;border:none;padding:12px 24px;border-radius:8px;cursor:pointer}
+
+    /* Shop Section */
+    #shop{display:grid;grid-template-columns:1fr 340px;gap:24px}
+    .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:12px;border:1px solid #eee;display:flex;flex-direction:column;transition:transform .2s}
+    .card:hover{transform:translateY(-3px)}
+    .thumb{height:160px;border-radius:10px;overflow:hidden;background:#f6f6f6}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .meta{padding-top:10px;display:flex;flex-direction:column;gap:6px;flex:1}
+    .title{font-weight:600;font-size:15px}
+    .price{font-weight:700;color:var(--accent)}
+    button{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+
+    .cart{background:var(--card);border-radius:12px;padding:16px;border:1px solid #eee;height:fit-content}
+    .cart h2{margin:0 0 12px 0;font-size:16px}
+    .cart-list{display:flex;flex-direction:column;gap:10px}
+    .cart-item{display:flex;gap:10px;align-items:center}
+    .cart-item img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+    .qty{display:flex;align-items:center;gap:6px}
+    .qty button{padding:6px;border-radius:6px;background:#f3f3f3;border:1px solid #ddd;color:#333}
+    .total{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:700}
+
+    /* Contact Section */
+    #contact form{max-width:500px;margin:auto;display:flex;flex-direction:column;gap:12px}
+    #contact input,#contact textarea{padding:12px;border-radius:8px;border:1px solid #ccc;font-size:15px}
+    #contact button{align-self:flex-start;padding:10px 22px}
+
+    footer{text-align:center;color:var(--muted);font-size:13px;margin-top:60px;padding:20px 0;border-top:1px solid #eee}
+
+    @media(max-width:900px){#shop{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand"><div class="logo">OG</div>OG Rise</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h1>Welcome to OG Rise</h1>
+    <p>Explore a world where wellness meets style. From premium skincare and fashion to smart technology, OG Rise brings sophistication to your lifestyle.</p>
+    <button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+  </section>
+
+  <section id="shop">
+    <div>
+      <h2 style="color:var(--accent)">Our Products</h2>
+      <div id="products" class="products"></div>
+      <div class="about" style="margin-top:40px;line-height:1.6">
+        <h3 style="color:var(--accent)">About OG Rise</h3>
+        <p>At OG Rise, we are committed to launching a unique platform that seamlessly combines wellness, beauty, fashion, and technology. Our curated collection includes healthcare essentials, skincare, haircare, and nutritional supplements designed to keep you glowing and confident. We're also introducing a stylish clothing line and footwear, ensuring you stay trendy every day. With advanced home automation products, we make your life smarter and safer. Join us in this movement towards a healthier, trendier lifestyle. OG Rise is on the horizon!</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="cart" id="cartSide">
+        <h2>Your Cart</h2>
+        <div id="cartList" class="cart-list"></div>
+        <div class="total"><div>Subtotal</div><div id="subtotal">₹0.00</div></div>
+        <button id="checkoutBtn" style="margin-top:12px;width:100%">Checkout</button>
+      </div>
+    </aside>
+  </section>
+
+  <section id="contact">
+    <h2 style="text-align:center;color:var(--accent)">Contact Us</h2>
+    <form id="contactForm">
+      <input type="text" id="cname" placeholder="Your Name" required>
+      <input type="email" id="cemail" placeholder="Your Email" required>
+      <textarea id="cmsg" rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 OG Rise — Wellness • Beauty • Fashion • Tech
+  </footer>
+
+  <script>
+    const PRODUCTS=[
+      {id:1,title:'Wellness Supplement Pack',price:899,image:'https://picsum.photos/seed/wellness/600/400'},
+      {id:2,title:'Luxury Skincare Cream',price:1299,image:'https://picsum.photos/seed/skincare/600/400'},
+      {id:3,title:'Organic Haircare Set',price:999,image:'https://picsum.photos/seed/haircare/600/400'},
+      {id:4,title:'Trendy OG Rise Hoodie',price:1499,image:'https://picsum.photos/seed/hoodie/600/400'},
+      {id:5,title:'Smart Home Hub',price:2499,image:'https://picsum.photos/seed/home/600/400'},
+      {id:6,title:'Stylish Sneakers',price:1899,image:'https://picsum.photos/seed/sneakers/600/400'}
+    ];
+
+    const CART_KEY='ogrise_cart_v1';
+    let cart=JSON.parse(localStorage.getItem(CART_KEY)||'{}');
+    const productsEl=document.getElementById('products');
+    const cartListEl=document.getElementById('cartList');
+    const subtotalEl=document.getElementById('subtotal');
+
+    function formatINR(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2});}
+    function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(cart));renderCart();updateCount();}
+    function addToCart(id){cart[id]=(cart[id]||0)+1;saveCart();}
+    function removeFromCart(id){delete cart[id];saveCart();}
+    function changeQty(id,qty){if(qty<=0)removeFromCart(id);else{cart[id]=qty;saveCart();}}
+    function cartItems(){return Object.keys(cart).map(id=>{const p=PRODUCTS.find(x=>x.id==id);return{product:p,qty:cart[id]}});}
+    function cartTotal(){return cartItems().reduce((s,it)=>s+it.product.price*it.qty,0);}
+
+    function renderProducts(){productsEl.innerHTML='';PRODUCTS.forEach(p=>{const c=document.createElement('div');c.className='card';c.innerHTML=`<div class='thumb'><img src='${p.image}'/></div><div class='meta'><div class='title'>${p.title}</div><div class='price'>${formatINR(p.price)}</div><button data-id='${p.id}'>Add to Cart</button></div>`;productsEl.appendChild(c);});document.querySelectorAll('.card button').forEach(b=>b.onclick=e=>addToCart(e.target.dataset.id));}
+
+    function renderCart(){const items=cartItems();cartListEl.innerHTML='';if(items.length===0){cartListEl.innerHTML='<div style="color:#777">Cart is empty</div>';subtotalEl.textContent='₹0.00';return;}items.forEach(it=>{const d=document.createElement('div');d.className='cart-item';d.innerHTML=`<img src='${it.product.image}'/><div style='flex:1'><div>${it.product.title}</div><div style='font-size:13px;color:#777'>${formatINR(it.product.price)}</div></div><div class='qty'><button data-id='${it.product.id}' class='dec'>-</button><div>${it.qty}</div><button data-id='${it.product.id}' class='inc'>+</button></div>`;cartListEl.appendChild(d);});cartListEl.querySelectorAll('.inc').forEach(b=>b.onclick=e=>changeQty(e.target.dataset.id,cart[e.target.dataset.id]+1));cartListEl.querySelectorAll('.dec').forEach(b=>b.onclick=e=>changeQty(e.target.dataset.id,cart[e.target.dataset.id]-1));subtotalEl.textContent=formatINR(cartTotal());}
+
+    function updateCount(){document.getElementById('cartCount').textContent=Object.values(cart).reduce((s,v)=>s+v,0);}
+
+    document.getElementById('checkoutBtn').onclick=()=>{if(Object.keys(cart).length===0)return alert('Cart empty');alert('Demo checkout only — no real payment.');cart={};saveCart();updateCount();};
+
+    document.getElementById('contactForm').onsubmit=(e)=>{e.preventDefault();alert('Message sent (demo). Thank you for contacting OG Rise!');e.target.reset();};
+
+    renderProducts();renderCart();updateCount();
+  </script>
+</body>
+</html>
